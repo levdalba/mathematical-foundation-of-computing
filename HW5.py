@@ -22,9 +22,26 @@ def gaussian_elimination(A, b):
     return x
 
 
-# Define A and b
-A = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=float)
-b = np.array([1, 2, 3], dtype=float)
+def generate_hilbert_matrix(n):
+    """Generate a Hilbert matrix of size n x n."""
+    H = np.zeros((n, n))
+    for i in range(n):
+        for j in range(n):
+            H[i, j] = 1.0 / (i + j + 1)
+    return H
+
+
+def generate_test_vector(A, x_test):
+    """Generate a vector b of size n so the solution of Ax=b will be x_test."""
+    return np.dot(A, x_test)
+
+
+# Generate a random 5x5 matrix A
+np.random.seed(0)  # for reproducibility
+A = np.random.rand(50, 50)
+
+# Generate a Hilbert vector b suitable for A
+b = generate_test_vector(A, np.ones(A.shape[0]))
 
 # Solve the system of equations
 x = gaussian_elimination(A, b)
@@ -44,3 +61,14 @@ if is_bad:
     print("Bad solution")
 else:
     print("Good solution")
+
+# Define the real solution
+real_solution = np.array([1, 2, 3, 4, 5])  # Adjust this to match the length of x
+
+# Calculate the distance to the real solution
+distance = np.linalg.norm(x - real_solution)
+print("Distance to the real solution:", distance)
+
+
+print("Matrix A:\n", A)
+print("Vector b:\n", b)
