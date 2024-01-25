@@ -18,7 +18,7 @@ pagerank = np.ones(markov_matrix.shape[0]) / markov_matrix.shape[0]
 # Power iteration with damping factor
 damping_factor = 0.85
 epsilon = 1e-8  # Convergence threshold
-delta = 1  # Change in rank vector
+delta = 1  # Change in rank vector6
 while delta > epsilon:
     new_pagerank = damping_factor * np.dot(markov_matrix, pagerank) + (
         1 - damping_factor
